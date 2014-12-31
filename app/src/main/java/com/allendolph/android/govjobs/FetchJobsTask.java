@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -91,7 +93,9 @@ public class FetchJobsTask extends AsyncTask<String, Void, Void> {
                 // Stream was empty, no need to parse
                 return null;
             }
+
             jobsJsonStr = buffer.toString();
+            Log.v(LOG_TAG, "Data as string: " + jobsJsonStr);
         } catch (IOException e) {
             Log.e(LOG_TAG, "ERROR: " + e);
             // If the code didn't successfully get the jobs data,
@@ -114,5 +118,16 @@ public class FetchJobsTask extends AsyncTask<String, Void, Void> {
         // Parse the string to JSON using helper methods
 
         return null;
+    }
+
+    /*
+     * Converts raw JSON string from Digital Gov Api
+     */
+    private  void getJobsDataFromJson(String jobsJsonStr, String[] queryParams)
+            throws JSONException {
+
+        // These are the name of the JSON objects that need to be extracted
+
+        // Query Param Information
     }
 }
