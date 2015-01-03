@@ -26,9 +26,9 @@ public class JobDbHelper extends SQLiteOpenHelper {
         // Create the Location Table
         final String SQL_CREATE_LOCATION_TABLE =
                 "CREATE TABLE " + LocationEntry.TABLE_NAME + "( " +
-                        LocationEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+                        LocationEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         LocationEntry.COLUMN_CITY + " TEXT NOT NULL, " +
-                        LocationEntry.COLUMN_STATE + " TEXT NOT NULL " +
+                        LocationEntry.COLUMN_STATE + " TEXT NOT NULL, " +
 
                         // To assure the application has just one location per state
                         // per city, create a UNIQUE contraint with replace
@@ -39,34 +39,34 @@ public class JobDbHelper extends SQLiteOpenHelper {
 
         // Create the Jobs Table
         final String SQL_CREATE_JOBS_TABLE =
-                "CREATE TABLE " + JobEntry.TABLE_NAME + "( " +
-                        JobEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+                "CREATE TABLE " + JobEntry.TABLE_NAME + " ( " +
+                        JobEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         JobEntry.COLUMN_JOB_ID + " TEXT NOT NULL, " +
-                        JobEntry.COLUMN_ORGANIZATION_NAME + " TEXT NOT NULL, " +
+                        JobEntry.COLUMN_POSITION_TITLE + " TEXT NOT NULL, " +
                         JobEntry.COLUMN_ORGANIZATION_NAME + " TEXT NOT NULL, " +
                         JobEntry.COLUMN_RATE_INTERVAL_CODE + " TEXT NOT NULL, " +
                         JobEntry.COLUMN_SALARY_MIN + " INTEGER NOT NULL, " +
                         JobEntry.COLUMN_SALARY_MAX + " INTEGER NOT NULL, " +
-                        JobEntry.COLUMN_START_DATE + " TEXT NOT NULL, " +
-                        JobEntry.COLUMN_END_DATE + " TEXT NOT NULL, " +
+                        JobEntry.COLUMN_START_DATETEXT + " TEXT NOT NULL, " +
+                        JobEntry.COLUMN_END_DATETEXT + " TEXT NOT NULL, " +
                         JobEntry.COLUMN_JOB_URL + " TEXT NOT NULL)";
 
         db.execSQL(SQL_CREATE_JOBS_TABLE);
 
         // Create the job/location lookup table
         final String SQL_CREATE_JOB_LOCATION_LOOKUP_TABLE =
-                "CREATE TABLE " + LookupJobsLocationsEntry.TABLE_NAME + "( " +
-                        LookupJobsLocationsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+                "CREATE TABLE " + LookupJobsLocationsEntry.TABLE_NAME + " ( " +
+                        LookupJobsLocationsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         LookupJobsLocationsEntry.COLUMN_JOB_KEY + " INTEGER NOT NULL, " +
                         LookupJobsLocationsEntry.COLUMN_LOC_KEY + " INTEGER NOT NULL, " +
 
                         // Setup the job column as a foreign key to jobs table
                         " FOREIGN KEY (" + LookupJobsLocationsEntry.COLUMN_JOB_KEY +
-                        ") REFERENCES " + "(" + JobEntry._ID + "), " +
+                        ") REFERENCES " + JobEntry.TABLE_NAME + " (" + JobEntry._ID + "), " +
 
                         // Setup the loc column as a foreign key to location table
                         " FOREIGN KEY (" + LookupJobsLocationsEntry.COLUMN_LOC_KEY +
-                        ") REFERENCES " + "(" + LocationEntry._ID + "))";
+                        ") REFERENCES " + LocationEntry.TABLE_NAME + " (" + LocationEntry._ID + "))";
 
         db.execSQL(SQL_CREATE_JOB_LOCATION_LOOKUP_TABLE);
     }

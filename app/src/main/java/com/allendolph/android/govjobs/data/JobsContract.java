@@ -73,8 +73,8 @@ public class JobsContract {
         public static final String COLUMN_RATE_INTERVAL_CODE = "rate_intervale_code";
         public static final String COLUMN_SALARY_MIN = "salary_min";
         public static final String COLUMN_SALARY_MAX = "salary_max";
-        public static final String COLUMN_START_DATE = "start_date";
-        public static final String COLUMN_END_DATE = "end_date";
+        public static final String COLUMN_START_DATETEXT = "start_date";
+        public static final String COLUMN_END_DATETEXT = "end_date";
         public static final String COLUMN_JOB_URL = "job_url";
 
         // Uri builder helper methods
